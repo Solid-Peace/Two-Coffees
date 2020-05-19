@@ -29,6 +29,17 @@ module.exports = {
                     'sass-loader',
                 ],
             },
+
+            {
+                test: /\.m?js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                  loader: 'babel-loader',
+                  options: {
+                    presets: ['@babel/preset-env']
+                  }
+                }
+              },
         ],
     },
 
@@ -42,6 +53,7 @@ module.exports = {
 
             ext: 'js,vue,json',
         }),
+
         // This makes it possible for us to safely use env vars on our code
         new webpack.DefinePlugin({
             'MODE': JSON.stringify(dev),
