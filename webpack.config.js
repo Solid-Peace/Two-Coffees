@@ -2,8 +2,10 @@ const path = require('path');
 const NodemonPlugin = require('nodemon-webpack-plugin');
 const MiniCssExtract = require('mini-css-extract-plugin');
 const webpack = require('webpack');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 let dev = process.env.NODE_ENV === "dev";
+
 
 module.exports = {
     watch: dev,
@@ -23,7 +25,7 @@ module.exports = {
         rules: [
             {
                 test: /\.(sa|sc|c)ss$/,
-                use: [MiniCssExtract.loader, 
+                use: [MiniCssExtract.loader,
                     'css-loader',
                     'postcss-loader',
                     'sass-loader',
@@ -34,12 +36,17 @@ module.exports = {
                 test: /\.m?js$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
-                  loader: 'babel-loader',
-                  options: {
-                    presets: ['@babel/preset-env']
-                  }
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
                 }
-              },
+            },
+
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
+            }
         ],
     },
 
@@ -47,11 +54,11 @@ module.exports = {
         new NodemonPlugin({
 
             script: './src/server.js',
-            watch: [path.resolve('./dist'), path.resolve('./src')],
+            watch: [path.resolve('./dist'), path.resolve('./src'), path.resolve('./public')],
             ignore: ['*.js.map'],
             verbose: true,
 
-            ext: 'js,vue,json',
+            ext: 'js,json,html',
         }),
 
         // This makes it possible for us to safely use env vars on our code
@@ -64,5 +71,8 @@ module.exports = {
             filename: '[name].css',
             hmr: dev,
         }),
+
+        // Vue Plugin 
+        new VueLoaderPlugin(),
     ]
 }
