@@ -53,8 +53,8 @@ module.exports = {
     plugins: [
         new NodemonPlugin({
 
-            script: './src/server.js',
-            watch: [path.resolve('./dist'), path.resolve('./src'), path.resolve('./public')],
+            script: './src/server/server.js',
+            watch: [path.resolve('./src/server'), /* path.resolve('./public') */],
             ignore: ['*.js.map'],
             verbose: true,
 

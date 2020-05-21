@@ -10,7 +10,7 @@
 export default {
   data() {
     return {
-      name: "quenti"
+      name: "test"
     };
   }
 };
