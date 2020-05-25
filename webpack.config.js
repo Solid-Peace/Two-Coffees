@@ -21,6 +21,12 @@ module.exports = {
         filename: '[name].bundle.js',
     },
 
+    resolve: {
+        alias: {
+            Images: path.resolve(__dirname, 'public/assets/imgs/'),
+        }
+    },
+
     module: {
         rules: [
             {
