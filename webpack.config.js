@@ -24,6 +24,7 @@ module.exports = {
     resolve: {
         alias: {
             Images: path.resolve(__dirname, 'public/assets/imgs/'),
+            CSS: path.resolve(__dirname, 'public/assets/css/'),
         }
     },
 
@@ -52,7 +53,18 @@ module.exports = {
             {
                 test: /\.vue$/,
                 loader: 'vue-loader'
-            }
+            },
+
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        outputPath: 'images',
+                        name: '[name].[ext]',
+                    }
+                }
+            },
         ],
     },
 

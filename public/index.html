@@ -8,6 +8,23 @@
 </head>
 <body>
     <div id="app"></div>
+    <div id="background">
+
+    </div>
     <script src="app.bundle.js"></script>
+    <script>
+        var b = document.querySelector("#background");
+
+        b.addEventListener('mousemove', e => {
+
+
+            e.target.style.backgroundPositionX = (-(e.offsetX) * 0.3 ) + "px";
+            e.target.style.backgroundPositionY = (-(e.offsetY) * 0.3 )+ "px";
+
+            console.log(e.offsetX);  
+
+        });
+
+    </script>
 </body>
 </html>

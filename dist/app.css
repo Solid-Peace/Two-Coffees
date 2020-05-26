@@ -8100,6 +8100,17 @@ video {
   color: rgba(6, 229, 241, var(--text-opacity));
 }
 
+#background {
+  background-image: url(images/background1.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: red solid 1px;
+  transition: all 1s;
+  width: 375px;
+  height: 667px;
+  margin: auto;
+}
+
 @media (min-width: 640px) {
   .sm\:space-y-0 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
