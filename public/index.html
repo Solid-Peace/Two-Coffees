@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TwoCoffees</title>
     <link rel="stylesheet" href="app.css">
 </head>
+
 <body>
     <div id="app"></div>
     <div id="background">
@@ -13,18 +15,43 @@
     </div>
     <script src="app.bundle.js"></script>
     <script>
-        var b = document.querySelector("#background");
 
-        b.addEventListener('mousemove', e => {
+        let img = new Image();
+        
+
+        img.onload = function () {
+            let b = document.querySelector("#background");
+            let limitX = this.width - b.getBoundingClientRect().width;
+            let limitY = this.height - b.getBoundingClientRect().height;
+
+            console.log(b.style.width);
+
+            console.log('image :  ' + this.width + 'x' + this.height);
+            console.log('limit :  ' +  limitY + 'x' + limitY);
 
 
-            e.target.style.backgroundPositionX = (-(e.offsetX) * 0.3 ) + "px";
-            e.target.style.backgroundPositionY = (-(e.offsetY) * 0.3 )+ "px";
+            b.addEventListener('mousemove', e => {
+                
+                if (e.target.style.backgroundPositionX <= 0) {
+                    e.target.style.backgroundPositionX = "1px";
+                } else if (e.offsetX >= limitX ) {
+                    e.target.style.backgroundPositionX = (-limitX) + "px";
+                } else {
+                    e.target.style.backgroundPositionX = -e.offsetX + "px";
+                }
 
-            console.log(e.offsetX);  
-
-        });
+                if (e.target.style.backgroundPositionY <= 0) {
+                    e.target.style.backgroundPositionY = "1px";
+                } else if (e.offsetY >= limitY ) {
+                    e.target.style.backgroundPositionY = (-limitY) + "px";
+                } else {
+                    e.target.style.backgroundPositionY = -e.offsetY + "px";
+                }
+            });
+        }
+        img.src = 'images/background1.jpg';
 
     </script>
 </body>
+
 </html>
