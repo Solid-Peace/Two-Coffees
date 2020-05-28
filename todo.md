@@ -6,3 +6,12 @@
 * webpack.config :
     * \+ resolving dir : imgs/
     * \+ file-loader
+
+
+
+__________
+
+## Long Time
+* Vue
+    * \+ [Création global de composants](https://fr.vuejs.org/v2/guide/components-registration.html#Enregistrement-global-automatique-des-composants-de-base)
+

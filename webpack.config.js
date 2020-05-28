@@ -27,6 +27,7 @@ module.exports = {
             Images: path.resolve(__dirname, 'public/assets/imgs/'),
             CSS: path.resolve(__dirname, 'public/assets/css/'),
             JS: path.resolve(__dirname, 'public/assets/js/'),
+            Components: path.resolve(__dirname, 'src/components/'),
         }
     },
 
