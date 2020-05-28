@@ -1,29 +1,31 @@
 <template>
   <div id="app">
-    <h1>My Todo App! {{ name }}</h1>
-
-    <div class="t"> tailwind connection test</div>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      name: "test"
-    };
-  }
-};
+  export default {
+    data() {
+      return {
+        name: "test"
+      };
+    }
+  };
+
+  import {testModule, movingBackground} from 'JS/functions.js'
+
+  movingBackground('images/background1.jpg', "#app");
 </script>
 
 <style lang="scss">
-h1 {
-  text-align: center;
-  color: brown;
-}
 
-.t {
-  color: theme('colors.mana');
-}
+#app {
+    background-image: url(~Images/background1.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: background-position ease;
 
+    width: 100%;
+    height: 100vh;
+}
 </style>

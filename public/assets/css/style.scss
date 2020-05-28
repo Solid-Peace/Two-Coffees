@@ -12,16 +12,3 @@
     }
 }
 
-#background {
-    background-image: url(~Images/background1.jpg);
-    background-repeat: no-repeat;
-    background-position: center;
-
-    border: red solid 1px;
-
-    transition: background-position .5s;
-
-    width: 375px;
-    height: 667px;
-    margin: auto;
-}

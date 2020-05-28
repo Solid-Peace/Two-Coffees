@@ -19,12 +19,14 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js',
+        library: 'lib',
     },
 
     resolve: {
         alias: {
             Images: path.resolve(__dirname, 'public/assets/imgs/'),
             CSS: path.resolve(__dirname, 'public/assets/css/'),
+            JS: path.resolve(__dirname, 'public/assets/js/'),
         }
     },
 
