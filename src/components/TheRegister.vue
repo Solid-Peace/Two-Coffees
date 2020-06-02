@@ -1,6 +1,6 @@
 <template>
   <div class="login-box">
-    <h2>Login</h2>
+    <h2>Register</h2>
     <form>
       <div class="user-box">
         <input type="text" name required />
@@ -18,7 +18,7 @@
         Submit
       </a>
     </form>
-    <span  @click="$emit('switch-frame', 'register')" class="register">register</span>
+    <span @click="$emit('switch-frame', 'login')" class="register">login</span>
   </div>
 </template>
 
@@ -30,6 +30,7 @@ export default {};
 // html {
 //   height: 100%;
 // }
+
 
 // body {
 //   margin: 0;
@@ -52,11 +53,11 @@ export default {};
 }
 
 .login-box .register {
-  position: absolute;
-  bottom: 0%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  @apply text-mana;
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    @apply text-mana;
 
   cursor: pointer;
 }
