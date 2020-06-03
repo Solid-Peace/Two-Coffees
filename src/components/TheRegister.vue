@@ -1,16 +1,44 @@
 <template>
   <div class="login-box">
     <h2>Register</h2>
-    <form>
+    <form @submit="registerUser">
       <div class="user-box">
-        <input type="text" name required />
+        <input 
+          type="text" 
+          name 
+          required 
+          v-model="username" 
+        />
         <label>Username</label>
       </div>
       <div class="user-box">
-        <input type="password" name required />
+        <input 
+          type="text" 
+          name 
+          required 
+          v-model="email" 
+        />
+        <label>E-mail</label>
+      </div>
+      <div class="user-box">
+        <input 
+          type="password" 
+          name 
+          required 
+          v-model="password"
+        />
         <label>Password</label>
       </div>
-      <a href="#">
+        <div class="user-box">
+        <input 
+          type="password" 
+          name 
+          required 
+          v-model="conf_password"
+        />
+        <label>Confirm Password</label>
+      </div>
+      <a @click="registerUser" href="#">
         <span></span>
         <span></span>
         <span></span>
@@ -23,7 +51,29 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      username:'', 
+      email:'',
+      password:'',
+      conf_password:'',
+    };
+  },
+
+  methods: {
+    registerUser() {
+      const newUser = {
+        username: this.username,
+        email: this.email,
+        password: this.password,
+        conf_password: this.conf_password,
+      };
+
+      this.$emit('register-user', newUser);
+    },
+  }
+};
 </script>
 
 <style lang="scss">

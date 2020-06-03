@@ -10,7 +10,8 @@
     <transition name="frame-transition">
       <TheRegister 
         v-show="frame == 'register'"
-        v-on:switch-frame="switchFrame">
+        v-on:switch-frame="switchFrame"
+        v-on:register-user="registerUser" >
       </TheRegister>
     </transition>
   </div>
@@ -39,6 +40,10 @@ export default {
   methods: {
     switchFrame(frame) {
       this.frame = frame;
+    },
+
+    registerUser(newUser){
+      console.log(newUser);
     }
   },
 };
