@@ -11,6 +11,9 @@ app.use(express.static('dist'));
 // To see incoming request
 app.use(logger);
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 // API routes to Users data Handling
 app.use('/api/user/', userRoutes);
 
