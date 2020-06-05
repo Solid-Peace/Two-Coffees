@@ -11,6 +11,7 @@ app.use(express.static('dist'));
 // To see incoming request
 app.use(logger);
 
+// Body Parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
