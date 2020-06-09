@@ -1,24 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const clientDB = require('../../db/client');
+const User = require('../../db/User');
+
 
 router.get('/', (req, res) => {
-    console.log(this);
-    clientDB(db => {
-        console.log(this);
-
-        let invetory = db.collection('inventory').find({});
-        console.log(invetory);
-
-        invetory.forEach(doc => {
-            console.log(doc.item);
-        }, err => {console.log(err)});
-
-        res.json({  
-            db: {
-                mgs : "ok"
-            }
-        });
+    res.json({  
+        db: {
+            mgs : "ok"
+        }
     });
 });
 
