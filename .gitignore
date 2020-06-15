@@ -1,2 +1,3 @@
 node_modules
 src/server/db/client.js
+src/server/db/parameters.js

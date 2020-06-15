@@ -7,7 +7,6 @@ module.exports = class User
     }
 
     getUsers() {
-
         clientDB(db => {
             let invetory = db.collection('inventory').find({});
             invetory.forEach(doc => {

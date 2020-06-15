@@ -1,6 +1,11 @@
 const express = require('express');
 const logger = require('./middleware/logger');
 const userRoutes = require('./routes/api/user');
+// 
+// 
+// SERVER 
+// 
+// 
 
 let app = express();
 
@@ -25,5 +30,9 @@ app.get('/', (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
+
+// 
+// Server Listening
+// 
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`) );

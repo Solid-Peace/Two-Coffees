@@ -1,7 +1,13 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
+const params = require('./parameters');
+// 
+// 
+// Database Connection
+// 
+// 
 
-const url = "mongodb+srv://Solid:Nartfsdq*90@cluster0-gsbne.mongodb.net/test?retryWrites=true&w=majority";
+const url = `mongodb+srv://Solid:${params.password}@cluster0-gsbne.mongodb.net/test?retryWrites=true&w=majority`;
 
 const client = new MongoClient(url, { useNewUrlParser: true });
 
