@@ -16,6 +16,7 @@ module.exports = function(callback) {
   MongoClient.connect(url, function(err, client) {
     assert.equal(null, err);
 
+    //Connection to test dabase, wait callback function display by Entities
     const db = client.db("test");
     callback(db);
     
