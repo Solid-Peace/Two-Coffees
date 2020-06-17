@@ -51,6 +51,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -69,6 +70,9 @@ export default {
         password: this.password,
         conf_password: this.conf_password,
       };
+
+      // test if datas are correct
+      // [function from JS]
 
       this.$emit('register-user', newUser);
     },

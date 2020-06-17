@@ -16,8 +16,12 @@
     </transition>
   </div>
 </template>
+
+
 <script>
-import { testModule, movingBackground } from "JS/functions.js";
+
+import { testModule, movingBackground } from "JS/functions.js"
+import axios from "axios"
 
 import TheLogin from 'Components/TheLogin.vue'
 import TheRegister from 'Components/TheRegister.vue'
@@ -43,15 +47,27 @@ export default {
     },
 
     registerUser(newUser){
+      // test if datas income
       console.log(newUser);
+
+      axios.post('/api/user/register', {
+         username: newUser.username,
+         email: newUser.email,
+         password:  newUser.password,
+         test: "true"
+      })
+      .then(res => {
+        console.log(res);
+        let user = res.data.msg.ops[0].username;
+        alert(`User ${user} has been registered`);
+      })
+      .catch(error => alert(error)); 
     }
   },
 };
 
-
-
-movingBackground("images/background1.jpg", "#app");
 </script>
+
 <style lang="scss">
 #app {
   background-image: url(~Images/background1.jpg);

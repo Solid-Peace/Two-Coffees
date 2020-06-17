@@ -15,9 +15,24 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/register', checkUserDatas, (req, res) => {
+router.post('/register',
     // middleware to verify integrity of incoming datas
+    checkUserDatas.register,
+    User.addUser,
+    (req, res) => {
     console.log('hello from register route');
+    console.log(res.locals.result);
+    res.json({
+        msg: res.locals.result,
+        test: 'ok'
+    });
+});
+
+router.post('/login',
+    // middleware to verify integrity of incoming datas
+    checkUserDatas.login,
+    (req, res) => {
+    console.log('hello from login route');
     res.json(req.body);
 });
 
