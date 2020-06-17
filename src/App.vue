@@ -66,6 +66,8 @@ export default {
   },
 };
 
+movingBackground("images/background1.jpg", "#app");
+
 </script>
 
 <style lang="scss">
