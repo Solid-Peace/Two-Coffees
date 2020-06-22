@@ -19,17 +19,22 @@ module.exports = class User
 
     // Asserted that infos are checked yet via a middleware on route layer
     // [Middleware File]
-    static addUser(req, res, next) {
-        clientDB(db => {
-            db.collection("users").insertOne({
-                username: req.body.username,
-                email: req.body.email,
-                password: req.body.password // serialize later
-            }, function(err, r){
-                console.log(r);
-                res.locals.result = r;
-                next();
-            })
+    static addUser(user) {
+        return new Promise((resolve, reject) => {
+            clientDB(db => {
+                db.collection("users").insertOne({
+                    username: user.username,
+                    email: user.email,
+                    password: user.password // serialize later
+                }, function(err, r){
+                    if(r){
+                        resolve(r)
+                    }else{
+                        reject(err)
+                    }
+                })
+        });
+        
             // Promise methode
 
             // .then(result => {
