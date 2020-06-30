@@ -1,7 +1,5 @@
 # Tow Coffees Please - ToDo
 
-## Lundi - 25 Mai
-
 ### init Branch
 * webpack.config :
     * \+ resolving dir : imgs/
@@ -20,3 +18,8 @@ __________
     \+ scale ++
     \+ eventListener MouseMove: Enter && Out => Re-center
     \+ Ad Better Transitions
+
+
+
+## A refaire
+* Découper l'application en micro services

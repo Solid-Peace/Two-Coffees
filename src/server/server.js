@@ -1,6 +1,8 @@
 const express = require('express');
 const logger = require('./middleware/logger');
 const userRoutes = require('./routes/api/user');
+const authRoutes = require('./routes/api/auth');
+
 // 
 // 
 // SERVER 
@@ -19,6 +21,10 @@ app.use(logger);
 // Body Parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// API routes to Users data Handling
+
+app.use('/api/auth/', authRoutes);
 
 // API routes to Users data Handling
 app.use('/api/user/', userRoutes);

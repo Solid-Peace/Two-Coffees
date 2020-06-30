@@ -1,4 +1,4 @@
-const clientDB = require('./client');
+const clientDB = require('../client');
 
 module.exports = class User 
 {
@@ -33,7 +33,7 @@ module.exports = class User
                         reject(err)
                     }
                 })
-        });
+            });
         
             // Promise methode
 
@@ -41,6 +41,29 @@ module.exports = class User
             //     console.log(result);
             //     res.locals.result = 'reussi';
             // })
+        });
+    }
+
+    static allUser(username, password) {
+        return new Promise((resolve, reject) => {
+            clientDB(db => {
+                cursor = db.collection("users").findOne({ 
+                    username: username,
+                    password: password
+                });
+
+                cursor.toArray((err, docs) => {
+                    if(err){
+                        console.log(err);
+                        reject(err);
+                    }
+
+                    if(docs){
+                        console.log("users retrieved", docs[0]);
+                        resolve(docs[0]);
+                    }
+                });
+            });
         });
     }
 }
