@@ -1,6 +1,6 @@
 const User = require('../db/models/User');
 const Auth = require('../db/models/Auth');
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 
 /*
 *
@@ -149,7 +149,7 @@ module.exports = {
         });
     },
 
-    jwtGenerate(req, res, next) {
+    jwtGenerate: (req, res, next) => {
 
         // Generate an access token
         const accessToken = Auth.jwt.sign({ username: res.locals.currentUser.username }, Auth.accessTokenSecret);
@@ -158,6 +158,45 @@ module.exports = {
         res.set('Authorization', `Bearer ${accessToken}`);
         next();
 
-    }
-}
+    },
 
+    authenticateJWT: (req, res,next) => {
+
+        // This function check if browser client have an JWT
+
+        const autHeader = req.headers.authorization;
+
+        if (autHeader) {
+            
+            // Just take the token, not 'baerer' string
+            const token = autHeader.split(' ')[1];
+
+            Auth.jwt.verify(
+                token
+                , Auth.accessTokenSecret
+                , (err, user) => {
+
+                    // 'user' parameters callback is the payload of the jwt
+                    
+                    if (err) {
+
+                        // If secret key not correspond, we return an error and redirect to login page
+                        return res.redirect(403, '/');
+
+                    }
+
+                    // Else we get the object of the actual user thanks to playload datas
+                    req.locals.user = user;
+
+                    // And redirect to /home page of the user
+                    return res.redirect(200, '/home');
+                }
+            );
+
+        }else{
+            
+            res.redirect('/');
+
+        }
+    },
+}

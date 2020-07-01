@@ -22,7 +22,7 @@ module.exports = class Auth
 
         //
         // Promise static methode which resolve or reject 
-        // depending to new user has been added
+        // depending on new user has been added
         //
         
         return new Promise((resolve, reject) => {
@@ -62,7 +62,7 @@ module.exports = class Auth
                     
                 },
                 { 
-                    // We project Only this informations to Front-End to construct UI
+                    // We project Only some informations to Front-End to construct UI
                     projection: {password: 0}
                 })
                 .then( result => {

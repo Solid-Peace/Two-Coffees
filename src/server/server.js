@@ -2,6 +2,7 @@ const express = require('express');
 const logger = require('./middleware/logger');
 const userRoutes = require('./routes/api/user');
 const authRoutes = require('./routes/api/auth');
+const authMiddleware = require('./middleware/auth');
 
 // 
 // 
@@ -22,8 +23,20 @@ app.use(logger);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// API routes to Users data Handling
 
+//
+//
+//                   Important ! 
+//
+// This middleware is set on application level
+// It checks if client request have jwt to authenticate him
+// If not, client is redirect to '/' to registrating loging
+// If Yes, client is redirect to '/home' personalized UI
+//
+//
+app.use(authMiddleware.authenticateJWT);
+
+// API routes to Users data Handling
 app.use('/api/auth/', authRoutes);
 
 // API routes to Users data Handling

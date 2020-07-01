@@ -2,48 +2,63 @@ const express = require('express');
 const router = express.Router();
 const User = require('../../db/models/User');
 
-const auth = require('../../middleware/auth');
+//const auth = require('../../middleware/auth');
+
+router.get('/home', (req, res) => {
+
+    res.json({
+        user: res.locals.user,
+        msg: 'Welcom in "two coffees please" !'
+    });
+
+});
+
+
+
+
+module.exports = router;
+
+
 
 // 
 // User Routes
 // 
-router.get('/', (req, res) => {
-    res.json({  
-        db: {
-            mgs : "ok"
-        }
-    });
-});
+// router.get('/', (req, res) => {
+//     res.json({  
+//         db: {
+//             mgs : "ok"
+//         }
+//     });
+// });
 
 // Register Route
 
-router.post('/register',
+// router.post('/register',
 
-    // Verify Data and write in db
-    auth.register,
+//     // Verify Data and write in db
+//     auth.register,
 
-    // User.addUser,
-    (req, res) => {
+//     // User.addUser,
+//     (req, res) => {
 
-        console.log('hello from register route');
-        console.log(res.locals.result);
+//         console.log('hello from register route');
+//         console.log(res.locals.result);
 
-        res.json({
-            msg: res.locals.result,
-            test: 'ok'
-        });        
-    }
-);
+//         res.json({
+//             msg: res.locals.result,
+//             test: 'ok'
+//         });        
+//     }
+// );
 
-router.post('/login',
-    // middleware to verify integrity of incoming datas
-    auth.login,
-    (req, res) => {
-    console.log('hello from login route');
-    res.json(req.body);
-});
+// router.post('/login',
+//     // middleware to verify integrity of incoming datas
+//     auth.login,
+//     (req, res) => {
+//     console.log('hello from login route');
+//     res.json(req.body);
+// });
 
-// 
-// To server.js
-// 
-module.exports = router;
+// // 
+// // To server.js
+// // 
