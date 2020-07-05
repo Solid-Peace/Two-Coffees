@@ -1,17 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../../db/models/User');
+const userMiddleware = require('../../middleware/user');
 
 //const auth = require('../../middleware/auth');
 
-router.get('/home', (req, res) => {
+router.get('/home',
 
-    res.json({
-        user: res.locals.user,
-        msg: 'Welcom in "two coffees please" !'
-    });
+    // Get User object model thanks to jwt 
+    // userMiddleware.getUser,
 
-});
+    (req, res) => {
+
+        console.log(res.locals.jwtUser);
+
+        res.json({
+            //user: res.locals.user,
+            msg: 'Welcom in "two coffees please" !',
+            User: res.locals.jwtUser
+        });
+    }
+);
 
 
 

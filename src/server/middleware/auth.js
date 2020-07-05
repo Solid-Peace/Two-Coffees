@@ -47,23 +47,23 @@ module.exports = {
         }
     },
 
-    login: (req, res, next) => {
-        // Test
-        console.log('hello login checking data');
-        const { username, password } = req.body;
+    // login: (req, res, next) => {
+    //     // Test
+    //     console.log('hello login checking data');
+    //     const { username, password } = req.body;
 
-        User.allUser(username, password).then( value => {
+    //     User.allUser(username, password).then( value => {
 
-            console.log('in login middleware then', value);
-            next();
+    //         console.log('in login middleware then', value);
+    //         next();
         
-        }).catch(err => {
+    //     }).catch(err => {
             
-            console.log(err);
-            res.sendStatus(401);
+    //         console.log(err);
+    //         res.sendStatus(401);
 
-        });
-    },
+    //     });
+    // },
 
 
     checkDatas: (req, res, next) => {
@@ -89,7 +89,7 @@ module.exports = {
             
         }else if(true && req.path.includes("login")){
 
-            console.log('test login');
+            console.log('in check user data login');
 
             res.locals.currentUser = {
                 email: req.body.email,
@@ -104,6 +104,7 @@ module.exports = {
             res.status(401).send('data aren\'t correct');
         } 
     },
+
 
     registration: (req, res, next) => {
 
@@ -120,8 +121,8 @@ module.exports = {
 
                 console.log('In auth middleware', err);
                 res.status(404).send(err);
-            
-        });
+            }
+        );
     },
 
 
@@ -152,22 +153,33 @@ module.exports = {
     jwtGenerate: (req, res, next) => {
 
         // Generate an access token
-        const accessToken = Auth.jwt.sign({ username: res.locals.currentUser.username }, Auth.accessTokenSecret);
+        const accessToken = Auth.jwt.sign({ email: res.locals.currentUser.email }, Auth.accessTokenSecret);
 
-        // Modify Header
-        res.set('Authorization', `Bearer ${accessToken}`);
+        console.log('tessssssssss');
+
+        // res.set('Authorization', `Bearer ${accessToken}`);
+        // console.log(res.header('Authorization'));
+
+        res.locals.token = `Bearer ${accessToken}`;
+
         next();
 
     },
 
-    authenticateJWT: (req, res,next) => {
+    authenticateJWT: (req, res, next) => {
 
-        // This function check if browser client have an JWT
+        // This function checks if browser client has an JWT
 
         const autHeader = req.headers.authorization;
 
-        if (autHeader) {
+        console.log(req.headers);
+
+        console.log('in authenticate JWT', autHeader);
+
+        if (autHeader && autHeader != "undefined") {
             
+            console.log(autHeader);
+
             // Just take the token, not 'baerer' string
             const token = autHeader.split(' ')[1];
 
@@ -181,21 +193,29 @@ module.exports = {
                     if (err) {
 
                         // If secret key not correspond, we return an error and redirect to login page
+                        console.log('wrong credentials');
                         return res.redirect(403, '/');
 
                     }
 
-                    // Else we get the object of the actual user thanks to playload datas
-                    req.locals.user = user;
+                    console.log('jwtAuth', user);
 
-                    // And redirect to /home page of the user
-                    return res.redirect(200, '/home');
+                    res.locals.jwtUser = user;
+
+                    // If incoming authenticate user search api/user scoped route it's ok 
+                    req.path.includes("/api/user") ? next() : res.redirect(302, '/api/user/home');
                 }
             );
 
         }else{
             
-            res.redirect('/');
+            // Securing route architecture
+            // Only /login and /register are aviable
+            // Without jwt signature 
+
+            console.log('in else of jwtAuth');
+
+            req.path === ("/api/auth/login" || "/api/auth/register") ? next() : res.redirect(403, '/');
 
         }
     },

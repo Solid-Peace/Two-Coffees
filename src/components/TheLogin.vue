@@ -2,15 +2,30 @@
   <div class="login-box">
     <h2>Login</h2>
     <form>
+
       <div class="user-box">
-        <input type="text" name required />
-        <label>Username</label>
+
+        <input 
+          type="text" 
+          name 
+          required 
+          v-model="email" />
+
+        <label>Email</label>
+
       </div>
       <div class="user-box">
-        <input type="password" name required />
+
+        <input 
+          type="password" 
+          name 
+          required
+          v-model="password" />
+
         <label>Password</label>
+
       </div>
-      <a href="#">
+      <a @click="loginUser" href="#">
         <span></span>
         <span></span>
         <span></span>
@@ -23,7 +38,31 @@
 </template>
 
 <script>
-export default {};
+
+export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+    };
+  },
+
+  methods: {
+    loginUser() {
+
+      const connectUser = {
+        email: this.email,
+        password: this.password,
+      };
+
+      console.log(this);
+
+      this.$emit('login-user', connectUser);
+
+    },
+  },
+};
+
 </script>
 
 <style lang="scss">

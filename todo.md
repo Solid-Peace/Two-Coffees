@@ -13,6 +13,10 @@ __________
 * Vue
     * \+ [Création global de composants](https://fr.vuejs.org/v2/guide/components-registration.html#Enregistrement-global-automatique-des-composants-de-base)
 
+* Back-end
+    * Remplacer le systeme de synchronisation
+        * replaceOne par une fonction de comparaison entre le le nouvel objet et l'ancien
+
 ## Front 
 * Background
     \+ scale ++

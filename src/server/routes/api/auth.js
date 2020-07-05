@@ -56,15 +56,20 @@ router.post('/login',
     auth.jwtGenerate,
 
     (req, res) => {
-
+        console.log('in /login', res.locals.token)
         res.json({
+            token: res.locals.token
+        })
 
-            msg: "user logged succesfuly",
+        // res.sendStatus(202).send('User logged');
+        // res.json({
 
-            // Object of user actually connected
-            user: res.locals.currentUser
+        //     msg: "user logged succesfuly",
 
-        });
+        //     // Object of user actually connected
+        //     user: res.locals.currentUser
+
+        // });
     }
 );
 

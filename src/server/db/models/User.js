@@ -11,7 +11,7 @@ const clientDB = require('../client');
 
 module.exports = class User 
 {
-    
+    getUser(){};
 }
 
 

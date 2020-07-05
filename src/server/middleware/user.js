@@ -4,12 +4,12 @@ module.exports = {
 
     getUser: (req, res, next) => {
 
-        User.getUser(res.locals.user)
+        User.getUser(res.locals.jwtUser)
             .then( result => {
 
                 console.log('in getUser middleware', result);
 
-                res.locals.user = result;
+                res.locals.objUser = result;
 
                 next();
 

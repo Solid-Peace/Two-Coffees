@@ -29,12 +29,13 @@ app.use(express.urlencoded({ extended: false }));
 //                   Important ! 
 //
 // This middleware is set on application level
-// It checks if client request have jwt to authenticate him
+// It checks if client request has jwt to authenticate him
 // If not, client is redirect to '/' to registrating loging
 // If Yes, client is redirect to '/home' personalized UI
 //
 //
 app.use(authMiddleware.authenticateJWT);
+
 
 // API routes to Users data Handling
 app.use('/api/auth/', authRoutes);

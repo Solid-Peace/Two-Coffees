@@ -3,7 +3,8 @@
     <transition name="frame-transition">
       <TheLogin 
         v-show="frame == 'login'"
-        v-on:switch-frame="switchFrame">
+        v-on:switch-frame="switchFrame"
+        v-on:login-user="loginUser" >
       </TheLogin>
     </transition>
 
@@ -14,6 +15,18 @@
         v-on:register-user="registerUser" >
       </TheRegister>
     </transition>
+
+    <transition name="frame-transition">
+      <TheRegister 
+        v-show="user != null">
+
+
+
+
+      </TheRegister>
+    </transition>
+
+
   </div>
 </template>
 
@@ -38,6 +51,7 @@ export default {
     return {
       name: "test",
       frame: "login",
+      User: null,
     };
   },
 
@@ -50,7 +64,7 @@ export default {
       // test if datas income
       console.log(newUser);
 
-      axios.post('/api/user/register', {
+      axios.post('/api/auth/register', {
          username: newUser.username,
          email: newUser.email,
          password:  newUser.password,
@@ -62,7 +76,38 @@ export default {
         alert(`User ${user} has been registered`);
       })
       .catch(error => alert(error)); 
-    }
+    },
+
+
+
+    loginUser(connectUser) {
+
+      console.log(connectUser);
+
+      axios.post('/api/auth/login', {
+        email: connectUser.email,
+        password: connectUser.password
+      }).
+      then( res => {
+
+
+        // Set new header default request
+        axios.defaults.headers.common['Authorization'] = res.data.token;
+
+        console.log(res);
+
+        axios.get('/api/user/home')
+          .then( res => console.log(res.data.User))
+          .catch( err => {
+              
+            console.log(err)
+            
+          })
+      })
+      .catch(err => console.log(err));
+
+    },
+
   },
 };
 
