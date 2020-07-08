@@ -52,6 +52,8 @@ export default {
         localStorage.clear();
         this.UserInstance = {};
       }
+
+      console.log('user instance', this.UserInstance);
     },
   },
 

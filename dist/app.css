@@ -396,6 +396,165 @@
 }
 }
 
+a[data-v-ff8479a0] {
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px 20px;
+  color: #03e9f4;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: 0.5s;
+  margin-top: 40px;
+  letter-spacing: 4px;
+}
+a[data-v-ff8479a0]:hover {
+  background: #03e9f4;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 100px #03e9f4;
+}
+a span[data-v-ff8479a0] {
+  position: absolute;
+  display: block;
+}
+a span[data-v-ff8479a0]:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #03e9f4);
+  -webkit-animation: btn-anim1-data-v-ff8479a0 1s linear infinite;
+          animation: btn-anim1-data-v-ff8479a0 1s linear infinite;
+}
+@-webkit-keyframes btn-anim1-data-v-ff8479a0 {
+0% {
+    left: -100%;
+}
+50%,
+  100% {
+    left: 100%;
+}
+}
+@keyframes btn-anim1-data-v-ff8479a0 {
+0% {
+    left: -100%;
+}
+50%,
+  100% {
+    left: 100%;
+}
+}
+a span[data-v-ff8479a0]:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #03e9f4);
+  -webkit-animation: btn-anim2-data-v-ff8479a0 1s linear infinite;
+          animation: btn-anim2-data-v-ff8479a0 1s linear infinite;
+  -webkit-animation-delay: 0.25s;
+          animation-delay: 0.25s;
+}
+@-webkit-keyframes btn-anim2-data-v-ff8479a0 {
+0% {
+    top: -100%;
+}
+50%,
+  100% {
+    top: 100%;
+}
+}
+@keyframes btn-anim2-data-v-ff8479a0 {
+0% {
+    top: -100%;
+}
+50%,
+  100% {
+    top: 100%;
+}
+}
+a span[data-v-ff8479a0]:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #03e9f4);
+  -webkit-animation: btn-anim3-data-v-ff8479a0 1s linear infinite;
+          animation: btn-anim3-data-v-ff8479a0 1s linear infinite;
+  -webkit-animation-delay: 0.5s;
+          animation-delay: 0.5s;
+}
+@-webkit-keyframes btn-anim3-data-v-ff8479a0 {
+0% {
+    right: -100%;
+}
+50%,
+  100% {
+    right: 100%;
+}
+}
+@keyframes btn-anim3-data-v-ff8479a0 {
+0% {
+    right: -100%;
+}
+50%,
+  100% {
+    right: 100%;
+}
+}
+a span[data-v-ff8479a0]:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #03e9f4);
+  -webkit-animation: btn-anim4-data-v-ff8479a0 1s linear infinite;
+          animation: btn-anim4-data-v-ff8479a0 1s linear infinite;
+  -webkit-animation-delay: 0.75s;
+          animation-delay: 0.75s;
+}
+@-webkit-keyframes btn-anim4-data-v-ff8479a0 {
+0% {
+    bottom: -100%;
+}
+50%,
+  100% {
+    bottom: 100%;
+}
+}
+@keyframes btn-anim4-data-v-ff8479a0 {
+0% {
+    bottom: -100%;
+}
+50%,
+  100% {
+    bottom: 100%;
+}
+}
+
+.two-coffees[data-v-fbb638e8] {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+button[data-v-fbb638e8] {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+button[data-v-fbb638e8]:after {
+  content: ">";
+}
+button[data-v-fbb638e8]::before {
+  content: "<";
+}
+
 #app {
   background-image: url(images/background1.jpg);
   background-repeat: no-repeat;
@@ -8625,6 +8784,41 @@ video {
   --text-opacity: 1;
   color: #06E5F1;
   color: rgba(6, 229, 241, var(--text-opacity));
+}
+
+.button-bottom {
+  position: absolute;
+  bottom: 0%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  --text-opacity: 1;
+  color: #06E5F1;
+  color: rgba(6, 229, 241, var(--text-opacity));
+  cursor: pointer;
+}
+
+.button-bottom button:hover {
+  text-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 100px #03e9f4;
+}
+
+.transparant-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+}
+
+.transparant-container h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
 }
 
 @media (min-width: 640px) {
