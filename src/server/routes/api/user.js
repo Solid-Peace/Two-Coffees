@@ -7,22 +7,19 @@ const userMiddleware = require('../../middleware/user');
 router.get('/home',
 
     // Get User object model thanks to jwt 
-    // userMiddleware.getUser,
+    userMiddleware.getUser,
 
     (req, res) => {
 
-        console.log(res.locals.jwtUser);
+        console.log('in /home', res.locals.jwtUser);
 
         res.json({
             //user: res.locals.user,
             msg: 'Welcom in "two coffees please" !',
-            User: res.locals.jwtUser
+            UserInstance: res.locals.UserInstance
         });
     }
 );
-
-
-
 
 module.exports = router;
 

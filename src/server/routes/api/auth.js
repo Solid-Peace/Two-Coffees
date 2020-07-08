@@ -22,9 +22,8 @@ router.get('/', (req, res) => {
 
 
 //
-// Registration system route
+// Registration logic && route
 //
-
 router.post('/register', 
 
     // Check incoming datas
@@ -38,38 +37,33 @@ router.post('/register',
         res.json({
             msg: "user registred succesfuly",
             user: res.locals.newUser
-        });
-
+        }
+    );
 });
 
 
-
+//
+// Login logic && route
+//
 router.post('/login',
 
-    // Check incoming datas
+    // Check credentials integrity
     auth.checkDatas,
 
-    // Login User
+    // Check if user exist
     auth.login,
 
-    // Generate JSON WEB Token and set it in Autorization header
+    // Generate JSON WEB Token based on email
     auth.jwtGenerate,
 
     (req, res) => {
-        console.log('in /login', res.locals.token)
+        
+        console.log('in /login', res.locals.token);
+
+        // Then send it
         res.json({
-            token: res.locals.token
-        })
-
-        // res.sendStatus(202).send('User logged');
-        // res.json({
-
-        //     msg: "user logged succesfuly",
-
-        //     // Object of user actually connected
-        //     user: res.locals.currentUser
-
-        // });
+            authToken: res.locals.token
+        });
     }
 );
 

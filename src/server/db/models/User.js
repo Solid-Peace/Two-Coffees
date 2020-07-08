@@ -11,7 +11,34 @@ const clientDB = require('../client');
 
 module.exports = class User 
 {
-    getUser(){};
+    static getUser(jwtUser){
+
+        return new Promise((resolve, reject) => {
+            clientDB(db => {
+
+                db.collection("users").findOne({
+
+                    email: jwtUser.email,
+                },
+                { 
+                    // We project Only some informations to Front-End to construct UI
+                    projection: {password: 0}
+                })
+                .then( result => {
+
+                    console.log('user has been found', result);
+                    resolve(result);
+
+                })
+                .catch( err => {
+
+                    console.log('in get User Model : user hasn\'t been found', err);
+                    reject(err);
+                    
+                })
+            });
+        });
+    };
 }
 
 

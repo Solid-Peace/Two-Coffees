@@ -89,7 +89,7 @@ module.exports = {
             
         }else if(true && req.path.includes("login")){
 
-            console.log('in check user data login');
+            console.log('in check user data login', req.body);
 
             res.locals.currentUser = {
                 email: req.body.email,
@@ -134,20 +134,21 @@ module.exports = {
         Auth.login(res.locals.currentUser)
             .then( result => {
                 
-                console.log('in Auth middleware', result.username + ' is found');
+                console.log(result);
+
+                console.log('in Auth middleware', result.email + ' is found');
 
                 // We Passing the returned result of database
                 res.locals.currentUser = result;
 
                 next();
-
             })
             .catch( err => {
 
                 console.log('In auth middleware', err);
-                res.status(404).send(err);
-
-        });
+                res.status(401).send(err);
+            }
+        );
     },
 
     jwtGenerate: (req, res, next) => {
@@ -172,8 +173,6 @@ module.exports = {
 
         const autHeader = req.headers.authorization;
 
-        console.log(req.headers);
-
         console.log('in authenticate JWT', autHeader);
 
         if (autHeader && autHeader != "undefined") {
@@ -188,13 +187,13 @@ module.exports = {
                 , Auth.accessTokenSecret
                 , (err, user) => {
 
-                    // 'user' parameters callback is the payload of the jwt
+                    // 'user' parhhhameters callback is the payload of the jwt
                     
                     if (err) {
 
                         // If secret key not correspond, we return an error and redirect to login page
-                        console.log('wrong credentials');
-                        return res.redirect(403, '/');
+                        console.log('Wrong Token Signature');
+                        return res.redirect(401, '/login');
 
                     }
 

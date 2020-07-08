@@ -74,7 +74,7 @@ module.exports = class Auth
                 .catch( err => {
 
                     console.log('user hasn\'t been found, username or password are incorrect', err);
-                    resolve(err);
+                    reject(err);
                     
                 })
 

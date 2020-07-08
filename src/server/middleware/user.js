@@ -9,12 +9,15 @@ module.exports = {
 
                 console.log('in getUser middleware', result);
 
-                res.locals.objUser = result;
+                res.locals.UserInstance = result;
 
                 next();
 
             })
-            .catch( err => res.send(404, err) );
+            .catch( err => 
+                
+                res.send(404, err) 
+            )
     },
 
 }

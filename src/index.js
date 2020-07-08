@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import axios from 'axios'
 import css from 'CSS/style.scss'
 import {testModule, movingBackground} from 'JS/functions.js'
 

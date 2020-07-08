@@ -404,10 +404,12 @@
   width: 100%;
   height: 100vh;
 }
-.frame-transition-enter-active, .frame-transition-leave-active {
-  transition: opacity .5s;
+.frame-transition-enter-active,
+.frame-transition-leave-active {
+  transition: opacity 0.5s;
 }
-.frame-transition-enter, .frame-transition-leave-to {
+.frame-transition-enter,
+.frame-transition-leave-to {
   opacity: 0;
 }
 
