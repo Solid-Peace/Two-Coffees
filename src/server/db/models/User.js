@@ -1,4 +1,6 @@
 const clientDB = require('../client');
+const {ObjectID} = require('mongodb');
+
 
 /*
 *
@@ -11,6 +13,7 @@ const clientDB = require('../client');
 
 module.exports = class User 
 {
+
     static getUser(jwtUser){
 
         return new Promise((resolve, reject) => {
@@ -38,7 +41,41 @@ module.exports = class User
                 })
             });
         });
-    };
+    }
+
+    static updateB(userID, newBibliotheque) {
+
+        return new Promise((resolve, reject) => {
+
+            clientDB(db => {
+
+                db.collection("users").updateOne({
+
+                    _id: ObjectID(userID),
+                },
+                { 
+                    // We update / replace only Bibliotheque object field
+
+                    $set: {'TwoCoffees.Bibliotheque': newBibliotheque}
+                    
+                })
+                .then( result => {
+
+                    console.log('Bibliotheque was updated', result);
+                    resolve(result);
+
+                })
+                .catch( err => {
+
+                    console.log('Error in User.updateB', err);
+                    reject(err);
+                    
+                })
+            });
+
+        })
+
+    }
 }
 
 

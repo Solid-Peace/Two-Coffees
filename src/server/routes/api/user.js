@@ -21,6 +21,21 @@ router.get('/home',
     }
 );
 
+router.post('/updateB',
+
+    // Middleware which fetch news data in DB
+    userMiddleware.updateB,
+
+    (req, res) => {
+        
+        res.json({
+            msg: 'bibliotheque was updated',
+        })
+
+    }
+
+);
+
 module.exports = router;
 
 

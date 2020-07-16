@@ -198,6 +198,8 @@ module.exports = {
                     }
 
                     console.log('jwtAuth', user);
+                    console.log('jwtAuth', req.body);
+
 
                     res.locals.jwtUser = user;
 
