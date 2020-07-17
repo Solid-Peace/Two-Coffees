@@ -1,44 +1,63 @@
-<template>
-
+<template v-show="frame == 'addGame'">
+  <div class="bibliotheque-container">
+    <h2>Bibliotheque</h2>
     <div class="transparant-container">
-        <h2>Bibliotheque</h2>
 
-        <form>
-                <input class="input-radio" type="radio" id="Playstation" value="Playstation" v-model="support" >
-                <label for="Playstation">
-                   <i class="fab fa-playstation"></i> Playstation
-                </label>
-                <br>
-                <input class="input-radio" type="radio" id="Xbox" value="Xbox" v-model="support">
-                <label for="two"> 
-                    <i class="fab fa-xbox"></i> Xbox
-                </label>
-                <br>
+      <div class="addGame-container">
+        <transition name="addGame-container">
+          <form>
+            <input
+              class="input-radio"
+              type="radio"
+              id="Playstation"
+              value="Playstation"
+              v-model="support"
+            />
+            <label for="Playstation">
+              <i class="fab fa-playstation"></i> Playstation
+            </label>
+            <br />
+            <input class="input-radio" type="radio" id="Xbox" value="Xbox" v-model="support" />
+            <label for="two">
+              <i class="fab fa-xbox"></i> Xbox
+            </label>
+            <br />
 
             <div class="form-box">
+              <input type="text" name required v-model="game" />
 
-                <input 
-                type="text" 
-                name 
-                required
-                v-model="game" />
-
-                <label>Game</label>
+              <label>Game</label>
             </div>
 
             <a @click="addGame" href="#">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                Add Game
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              Add Game
             </a>
-        </form>
+          </form>
 
-		<GameAdded v-if="showAddedModal" :game="game" :support="support" @closeGameAdded="closeGameAdded"/>
+          <GameAdded
+            v-if="showAddedModal"
+            :game="game"
+            :support="support"
+            @closeGameAdded="closeGameAdded"
+          />
+
+		  <div class="button-bottom right">
+            <button @click="$emit('switch-frame', 'gameList')">Game List</button>
+          </div>
+        </transition>
+      </div>
+
+      <div v-show="frame == 'gameList'">
+		  <h2>Welcom to game List</h2>
+	  </div>
+
 
     </div>
-  
+  </div>
 </template>
 
 <script>
@@ -52,26 +71,32 @@ export default {
 		GameAdded
 	},
 
-    props: {
-        UserInstance: Object,
-    },
+	props: {
+		UserInstance: Object,
+	},
 
-    data() {
-        return {
-            support: '',
+	data() {
+		return {
+			support: '',
 			game: '',
 			showAddedModal: false,
-        }
-    },
+			frame: 'addGame',
+		}
+	},
 
-    methods: {
-        addGame() {
+	methods: {
 
-            var newUserInstance = this.UserInstance;
+		switchFrame(frame) {
+			this.frame = frame;
+		},
 
-            if(!newUserInstance.TwoCoffees.Bibliotheque[this.support]) {
-                newUserInstance.TwoCoffees.Bibliotheque[this.support] = {};
-            }
+		addGame() {
+
+			var newUserInstance = this.UserInstance;
+
+			if(!newUserInstance.TwoCoffees.Bibliotheque[this.support]) {
+				newUserInstance.TwoCoffees.Bibliotheque[this.support] = {};
+			}
 
 			if(newUserInstance.TwoCoffees.Bibliotheque[this.support][this.game]) {
 				alert('Sorry this game already exists in your bibliotheque')
@@ -79,14 +104,14 @@ export default {
 
 				newUserInstance.TwoCoffees.Bibliotheque[this.support][this.game] = {}
 
-                console.log(newUserInstance);
+				console.log(newUserInstance);
 
-                var request = new UpdateRequest(localStorage.authToken);
-                
-                request.instance.post('/api/user/updateB', {
-                    newUserInstance: newUserInstance
-                })
-                .then( r => {
+				var request = new UpdateRequest(localStorage.authToken);
+				
+				request.instance.post('/api/user/updateB', {
+					newUserInstance: newUserInstance
+				})
+				.then( r => {
 
 					console.log(r);
 					
@@ -97,11 +122,11 @@ export default {
 					// Then we invok modal window to say at user that his Bibliotheque was updated 
 					this.showAddedModal = true;
 
-					// Finaly we rebuilt this component
+					// Finaly we rebuilt this component from modal window
+					// Take look at closeGameAdded method
 					
-
 				})
-                .catch(error => alert('in client side, addGame', error));
+				.catch(error => alert('in client side, addGame', error));
 			}
 		},
 		
@@ -109,18 +134,18 @@ export default {
 			console.log('hello from closegameadded');
 			this.$emit('rebuiltComponent');
 		}
-    }
+	}
 }
 </script>
 
 <style lang="scss" scoped>
 
-label {
+.label {
   color: white;
 }
 
 .input-radio:checked + label {
-    @apply text-mana;
+  @apply text-mana;
 }
 
 .form-box {
@@ -266,6 +291,5 @@ a span:nth-child(4) {
     bottom: 100%;
   }
 }
-
 
 </style>
