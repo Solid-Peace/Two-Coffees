@@ -46,7 +46,7 @@ export default {
 
   watch: {
     "frame": function(){
-      console.log('hello frm watcher !!');
+      console.log('hello from watcher !!');
 
       if(this.frame == ('login' || 'register')){
         localStorage.clear();
@@ -61,7 +61,11 @@ export default {
     this.$root.$on('deconnexion', (newFrame) => {
       console.log('in deconnexion event App', newFrame);
       this.switchFrame(newFrame);
-    })
+    });
+
+    this.$root.$on('updateUserInstance', newUserInstance => {
+      this.UserInstance = newUserInstance;
+    });
   },
 
   created() {

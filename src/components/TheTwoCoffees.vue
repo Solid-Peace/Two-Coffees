@@ -42,9 +42,11 @@
 
         <transition name="frame-transition">
             <TheBibliotheque
+                @rebuiltComponent="rebuiltComponent"
                 v-on:switch-frame="switchFrame"
                 v-show="frame == 'Bibliotheque'"
                 :UserInstance="UserInstance"
+                :key="bibliothequeKey"
             ></TheBibliotheque>
         </transition>
 
@@ -71,6 +73,7 @@ export default {
     data() {
         return {
             frame: "button-menu",
+            bibliothequeKey: 0,
         }
     },
 
@@ -84,6 +87,12 @@ export default {
         switchFrame(newFrame) {
             this.frame = newFrame;
             console.log(this.frame);
+        },
+
+
+        // Allow to rebuilt a component after modification
+        rebuiltComponent() {
+            this.bibliothequeKey += 1;
         },
     },
 }

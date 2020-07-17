@@ -35,6 +35,8 @@
             </a>
         </form>
 
+		<GameAdded v-if="showAddedModal" :game="game" :support="support" @closeGameAdded="closeGameAdded"/>
+
     </div>
   
 </template>
@@ -42,8 +44,13 @@
 <script>
 import axios from 'axios'
 import UpdateRequest from "JS/requests/Update.js"
+import GameAdded from 'Components/modals/gameAdded.vue'
 
 export default {
+
+	components: {
+		GameAdded
+	},
 
     props: {
         UserInstance: Object,
@@ -52,7 +59,8 @@ export default {
     data() {
         return {
             support: '',
-            game: '',
+			game: '',
+			showAddedModal: false,
         }
     },
 
@@ -78,10 +86,29 @@ export default {
                 request.instance.post('/api/user/updateB', {
                     newUserInstance: newUserInstance
                 })
-                .then( r => console.log(r))
+                .then( r => {
+
+					console.log(r);
+					
+
+					// We updtate UserInstance to enterly Application from root component
+					this.$root.$emit('updateUserInstance', newUserInstance);
+
+					// Then we invok modal window to say at user that his Bibliotheque was updated 
+					this.showAddedModal = true;
+
+					// Finaly we rebuilt this component
+					
+
+				})
                 .catch(error => alert('in client side, addGame', error));
 			}
-        }
+		},
+		
+		closeGameAdded() {
+			console.log('hello from closegameadded');
+			this.$emit('rebuiltComponent');
+		}
     }
 }
 </script>
