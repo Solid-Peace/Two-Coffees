@@ -28,4 +28,19 @@ export default {
 
 <style lang="scss" scoped>
 
+    button {
+        text-transform: uppercase;
+
+        font-weight: bold;
+
+        &:after {
+            content: ">";
+        }
+
+        &::before {
+            content: "<";
+        }
+    }
+    
+
 </style>>

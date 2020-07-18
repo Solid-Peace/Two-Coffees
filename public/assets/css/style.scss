@@ -12,10 +12,34 @@
     }
 }
 
+* {
+    box-sizing: border-box;
+}
+
+.app-container {
+    width: 100%;
+    height: 100%;
+}
+
 .button-bottom {
     position: absolute;
     bottom: 0%;
     left: 50%;
+    transform: translate(-50%, -50%);
+    @apply text-mana;
+  
+    cursor: pointer;
+
+    button:hover {
+        text-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+        0 0 100px #03e9f4;
+    }
+}
+
+.button-bottom-right {
+    position: absolute;
+    bottom: 0%;
+    right: 0%;
     transform: translate(-50%, -50%);
     @apply text-mana;
   
@@ -36,7 +60,6 @@
     padding: 40px;
     transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, 0.5);
-    box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
     border-radius: 10px;
 

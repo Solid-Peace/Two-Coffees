@@ -1,21 +1,61 @@
 <template>
-   <AddGameForm
-		:UserInstance='UserInstance'
-		@rebuiltComponent="rebuiltComponent"
-		:key="AddGameComponentKey"
-	/>
+    <div class="transparant-container">
+		<h2>Add a Game</h2>
+          <form>
+            <input
+              class="input-radio"
+              type="radio"
+              id="Playstation"
+              value="Playstation"
+              v-model="support"
+            />
+            <label for="Playstation">
+              <i class="fab fa-playstation"></i> Playstation
+            </label>
+            <br />
+            <input class="input-radio" type="radio" id="Xbox" value="Xbox" v-model="support" />
+            <label for="two">
+              <i class="fab fa-xbox"></i> Xbox
+            </label>
+            <br />
+
+            <div class="form-box">
+              <input type="text" name required v-model="game" />
+
+              <label>Game</label>
+            </div>
+
+            <a @click="addGame" href="#">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              Add Game
+            </a>
+          </form>
+
+          <GameAdded
+            v-if="showAddedModal"
+            :game="game"
+            :support="support"
+            @closeGameAdded="closeGameAdded"
+          />
+
+		  <div class="button-bottom right">
+            <button @click="$emit('switch-frame', 'gameList')">Game List</button>
+        </div>
+ 	</div>
 </template>
 
 <script>
 import axios from 'axios'
 import UpdateRequest from "JS/requests/Update.js"
-import AddGameForm from 'Components/TheAddGameForm.vue'
-
+import GameAdded from 'Components/modals/gameAdded.vue'
 
 export default {
 
 	components: {
-		AddGameForm
+		GameAdded
 	},
 
 	props: {
@@ -24,7 +64,9 @@ export default {
 
 	data() {
 		return {
-			AddGameComponentKey: 0,
+			support: '',
+			game: '',
+			showAddedModal: false,
 		}
 	},
 
@@ -34,10 +76,50 @@ export default {
 			this.frame = frame;
 		},
 
-		// Allow to rebuilt a component after modification
-        rebuiltComponent() {
-            this.AddGameComponentKey += 1;
-        },
+		addGame() {
+
+			var newUserInstance = this.UserInstance;
+
+			if(!newUserInstance.TwoCoffees.Bibliotheque[this.support]) {
+				newUserInstance.TwoCoffees.Bibliotheque[this.support] = {};
+			}
+
+			if(newUserInstance.TwoCoffees.Bibliotheque[this.support][this.game]) {
+				alert('Sorry this game already exists in your bibliotheque')
+			}else{
+
+				newUserInstance.TwoCoffees.Bibliotheque[this.support][this.game] = {}
+
+				console.log(newUserInstance);
+
+				var request = new UpdateRequest(localStorage.authToken);
+				
+				request.instance.post('/api/user/updateB', {
+					newUserInstance: newUserInstance
+				})
+				.then( r => {
+
+					console.log(r);
+					
+
+					// We updtate UserInstance to enterly Application from root component
+					this.$root.$emit('updateUserInstance', newUserInstance);
+
+					// Then we invok modal window to say at user that his Bibliotheque was updated 
+					this.showAddedModal = true;
+
+					// Finaly we rebuilt this component from modal window
+					// Take look at closeGameAdded method
+					
+				})
+				.catch(error => alert('in client side, addGame', error));
+			}
+		},
+		
+		closeGameAdded() {
+			console.log('hello from closegameadded');
+			this.$emit('rebuiltComponent');
+		}
 	}
 }
 </script>
