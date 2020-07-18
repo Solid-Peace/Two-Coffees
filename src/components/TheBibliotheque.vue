@@ -1,21 +1,38 @@
 <template>
-   <AddGameForm
-		:UserInstance='UserInstance'
-		@rebuiltComponent="rebuiltComponent"
-		:key="AddGameComponentKey"
-	/>
+
+
+  <div class="bibliotheque">
+    <transition name="addGameBox">
+      <AddGameForm
+        v-show="frame == 'addGameForm'"
+        :UserInstance='UserInstance'
+        @rebuiltComponent="rebuiltComponent"
+        @switchFrame='switchFrame'
+        :key="AddGameComponentKey"
+      />
+    </transition>
+
+    <transition name="gameListBox">
+      <GameList 
+        v-show="frame == 'gameList'"
+        :Bibliotheque="Bibliotheque"
+      />
+    </transition>
+  </div>
 </template>
 
 <script>
 import axios from 'axios'
 import UpdateRequest from "JS/requests/Update.js"
 import AddGameForm from 'Components/TheAddGameForm.vue'
+import GameList from 'Components/TheGameList.vue'
 
 
 export default {
 
 	components: {
-		AddGameForm
+		AddGameForm,
+    GameList,
 	},
 
 	props: {
@@ -25,10 +42,17 @@ export default {
 	data() {
 		return {
 			AddGameComponentKey: 0,
+      frame: 'addGameForm',
+      Bibliotheque: this.getUserInstance(),
 		}
 	},
 
 	methods: {
+
+    getUserInstance() {
+      console.log('In Get User', this.UserInstance);
+      return this.UserInstance;
+    },
 
 		switchFrame(frame) {
 			this.frame = frame;

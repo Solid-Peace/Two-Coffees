@@ -595,13 +595,6 @@ button[data-v-3d7fd3db]::before {
   transform: scale(1.1);
 }
 
-button[data-v-b313fcd4] {
-  text-transform: uppercase;
-  font-weight: bold;
-}
-button[data-v-b313fcd4]:after {
-  content: ">";
-}
 label[data-v-b313fcd4] {
   color: white;
 }
@@ -9280,9 +9273,36 @@ video {
   color: #06E5F1;
   color: rgba(6, 229, 241, var(--text-opacity));
   cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
-.button-bottom-right button:hover {
+.button-bottom-right:after {
+  content: " >";
+}
+
+.button-bottom-right *:hover, .button-bottom-right:hover {
+  text-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 100px #03e9f4;
+}
+
+.button-bottom-left {
+  position: absolute;
+  bottom: 0%;
+  left: 0%;
+  transform: translate(50%, -50%);
+  --text-opacity: 1;
+  color: #06E5F1;
+  color: rgba(6, 229, 241, var(--text-opacity));
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.button-bottom-left:before {
+  content: "< ";
+}
+
+.button-bottom-left *:hover, .button-bottom-left:hover {
   text-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 100px #03e9f4;
 }
 

@@ -45,7 +45,38 @@
   
     cursor: pointer;
 
-    button:hover {
+    text-transform: uppercase;
+
+    font-weight: bold;
+  
+    &:after {
+      content: " >";
+    }
+
+    *:hover, &:hover {
+        text-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+        0 0 100px #03e9f4;
+    }
+
+}
+
+.button-bottom-left {
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+    transform: translate(50%, -50%);
+    @apply text-mana;
+
+    cursor: pointer;
+
+    text-transform: uppercase;
+    font-weight: bold;
+
+    &:before {
+        content: "< ";
+      }
+
+    *:hover, &:hover {
         text-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
         0 0 100px #03e9f4;
     }

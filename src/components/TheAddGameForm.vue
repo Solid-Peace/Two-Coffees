@@ -1,53 +1,56 @@
 <template>
   <div class="app-container">
-<div class="transparant-container">
-    <h2>Add a Game</h2>
-    <form>
-      <input
-        class="input-radio"
-        type="radio"
-        id="Playstation"
-        value="Playstation"
-        v-model="support"
+    <div class="transparant-container">
+      <h2>Add a Game</h2>
+      <form>
+        <input
+          class="input-radio"
+          type="radio"
+          id="Playstation"
+          value="Playstation"
+          v-model="support"
+        />
+        <label for="Playstation">
+          <i class="fab fa-playstation"></i> Playstation
+        </label>
+        <br />
+        <input class="input-radio" type="radio" id="Xbox" value="Xbox" v-model="support" />
+        <label for="two">
+          <i class="fab fa-xbox"></i> Xbox
+        </label>
+        <br />
+
+        <div class="form-box">
+          <input type="text" name required v-model="game" />
+
+          <label>Game</label>
+        </div>
+
+        <a @click="addGame" href="#">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Add Game
+        </a>
+      </form>
+
+      <GameAdded
+        v-if="showAddedModal"
+        :game="game"
+        :support="support"
+        @closeGameAdded="closeGameAdded"
       />
-      <label for="Playstation">
-        <i class="fab fa-playstation"></i> Playstation
-      </label>
-      <br />
-      <input class="input-radio" type="radio" id="Xbox" value="Xbox" v-model="support" />
-      <label for="two">
-        <i class="fab fa-xbox"></i> Xbox
-      </label>
-      <br />
+    </div>
 
-      <div class="form-box">
-        <input type="text" name required v-model="game" />
+    <div class="button-bottom-right">
+      <button @click="$emit('switchFrame', 'gameList')">Game List</button>
+    </div>
 
-        <label>Game</label>
-      </div>
-
-      <a @click="addGame" href="#">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        Add Game
-      </a>
-    </form>
-
-    <GameAdded
-      v-if="showAddedModal"
-      :game="game"
-      :support="support"
-      @closeGameAdded="closeGameAdded"
-    />
-  </div>
-
-  <div class="button-bottom-right">
-      <button @click="$root.$emit('undisplayMenu')">Game List</button>
+    <div class="button-bottom-left">
+      <button @click="$root.$emit('undisplayMenu')">Menu</button>
     </div>
   </div>
-  
 </template>
 
 <script>
@@ -122,17 +125,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-    button {
-        text-transform: uppercase;
-
-        font-weight: bold;
-
-        &:after {
-            content: ">";
-        }
-    }
-    
 
 label {
   color: white;
