@@ -2,17 +2,22 @@
 
 
   <div class="bibliotheque">
-    <transition name="addGameBox">
+    <transition 
+      name="addGameBox"
+      v-on:after-leave="afterLeaveAddGameBox"
+    >
       <AddGameForm
         v-show="frame == 'addGameForm'"
         :UserInstance='UserInstance'
         @rebuiltComponent="rebuiltComponent"
-        @switchFrame='switchFrame'
+        @switchFrameTransition='switchFrameTransition'
         :key="AddGameComponentKey"
       />
     </transition>
 
-    <transition name="gameListBox">
+    <transition 
+      name="gameListBox"
+    >
       <GameList 
         v-show="frame == 'gameList'"
         :Bibliotheque="Bibliotheque"
@@ -43,15 +48,18 @@ export default {
 		return {
 			AddGameComponentKey: 0,
       frame: 'addGameForm',
-      Bibliotheque: this.getUserInstance(),
+      Bibliotheque: this.UserInstance.TwoCoffees.Bibliotheque,
 		}
-	},
+  },
 
 	methods: {
 
-    getUserInstance() {
-      console.log('In Get User', this.UserInstance);
-      return this.UserInstance;
+    afterLeaveAddGameBox() {
+      this.frame = 'gameList'
+    },
+
+    switchFrameTransition() {
+      this.frame = '';
     },
 
 		switchFrame(frame) {
@@ -67,6 +75,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.addGameBox-enter, .addGameBox-leave-to {
+  opacity: 0;
+}
+
+.addGameBox-enter-active, .addGameBox-leave-active {
+  transition: opacity .5s;
+}
+
+.gameListBox-enter, .gameListBox-leave-to {
+  transform: translateX(100%);
+}
+.gameListBox-enter-active, .gameListBox-leave-active {
+  transition: all 1s ease;
+}
 
 .label {
   color: white;

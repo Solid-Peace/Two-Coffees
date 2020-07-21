@@ -138,7 +138,7 @@ export default {
         text-align: center;
         @apply text-mana;
         cursor: pointer;
-
+        transition: all .3s ease;
         padding: 2px;
 
         display: flex;

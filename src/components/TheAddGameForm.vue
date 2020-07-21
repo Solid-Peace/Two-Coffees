@@ -44,7 +44,7 @@
     </div>
 
     <div class="button-bottom-right">
-      <button @click="$emit('switchFrame', 'gameList')">Game List</button>
+      <button @click="$emit('switchFrameTransition')">Game List</button>
     </div>
 
     <div class="button-bottom-left">

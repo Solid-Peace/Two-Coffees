@@ -28,8 +28,10 @@ export default class Home
 
         this.instance.interceptors.response.use( (response) => {
 
-            console.log('in interceptor', response.data.UserInstance);
-            console.log(this);
+            // Get UserInstance from server
+            console.log('in interceptor home', response.data.UserInstance);
+
+            console.log('in interceptor home, this', this);
 
             if(response.status == 401) {
                 alert('wrong token signature');
@@ -43,8 +45,9 @@ export default class Home
 
             if(response.data.UserInstance) {
                 this.singleFileComponent.UserInstance = response.data.UserInstance;
+                this.singleFileComponent.frame = '';
 
-                this.singleFileComponent.frame = "userInstance";
+                //this.singleFileComponent.frame = "userInstance";
             }
 
             return response;

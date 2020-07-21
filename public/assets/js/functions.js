@@ -1,4 +1,4 @@
-export {movingBackground, testModule}
+export {movingBackground, testModule, getKeyByValue}
 
 // Allow background to move along cursor or tapemove
 function movingBackground(url, querySelector) {
@@ -20,13 +20,14 @@ function movingBackground(url, querySelector) {
 
     }
 
-    isMobile() ? eventType = "touchmove" : eventType = "mousemove";
+    isMobile() ? eventType = "touchmove" : eventType = "click";
 
     console.log(eventType);
 
     let img = new Image();
 
     img.onload = function () {
+
         // While image loading, extract some properties
         // Same time bound DOM and EventListener 
 
@@ -35,22 +36,36 @@ function movingBackground(url, querySelector) {
         let limitX = this.width - b.getBoundingClientRect().width;
         let limitY = this.height - b.getBoundingClientRect().height;
 
+        console.log('image loaded');
+
         b.addEventListener(eventType, e => {
+
+        /*********
+         * 
+         *  Here this == img, != b (currentEvent)
+         *  Cause to arrow Function
+         * 
+         */
+        
+
+            // console.log(this);
+            // console.log(b)
+            // console.log(e);
                 
-            if (e.target.style.backgroundPositionX <= 0) {
-                e.target.style.backgroundPositionX = "1px";
+            if (b.style.backgroundPositionX <= 0) {
+                b.style.backgroundPositionX = "0px";
             } else if (e.offsetX >= limitX ) {
-                e.target.style.backgroundPositionX = (-limitX) + "px";
+                b.style.backgroundPositionX = (-limitX) + "px";
             } else {
-                e.target.style.backgroundPositionX = -e.offsetX + "px";
+                b.style.backgroundPositionX = -e.offsetX + "px";
             }
 
-            if (e.target.style.backgroundPositionY <= 0) {
-                e.target.style.backgroundPositionY = "1px";
+            if (b.style.backgroundPositionY <= 0) {
+                b.style.backgroundPositionY = "0px";
             } else if (e.offsetY >= limitY ) {
-                e.target.style.backgroundPositionY = (-limitY) + "px";
+                b.style.backgroundPositionY = (-limitY) + "px";
             } else {
-                e.target.style.backgroundPositionY = -e.offsetY + "px";
+                b.style.backgroundPositionY = -e.offsetY + "px";
             }
         });
     }
@@ -60,4 +75,9 @@ function movingBackground(url, querySelector) {
 
 function testModule() {
     console.log('hello world from module');
+}
+
+
+var getKeyByValue = (object, value) => {
+    return Object.keys(object).find(key => object[key] === value);
 }

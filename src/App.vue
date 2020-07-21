@@ -18,7 +18,7 @@
 
     <transition name="frame-transition">
       <TheTwoCoffees 
-        v-show="frame == 'userInstance'"
+        v-if="frame == 'userInstance'"
         :UserInstance="UserInstance"
         :frame="frame"
       ></TheTwoCoffees>
@@ -50,7 +50,7 @@ export default {
 
       if(this.frame == ('login' || 'register')){
         localStorage.clear();
-        this.UserInstance = {};
+        this.UserInstance = '';
       }
 
       console.log('user instance', this.UserInstance);
@@ -72,7 +72,11 @@ export default {
     if(localStorage.authToken) {
       var getUserIntance = new HomeRequest(localStorage.authToken, this);
 
-      var value = getUserIntance.instance.get('/api/user/home').then( result => console.log(result));
+      var value = getUserIntance.instance.get('/api/user/home').then( result => {
+        console.log('in then home request', result);
+        this.UserInstance = result.data.UserInstance;
+        this.frame = 'userInstance';
+      });
       console.log(value);
     }else{
       this.frame = "login";
@@ -120,8 +124,13 @@ export default {
           password: user_credentials.password,
         }
       }).then( () => {
-        var getUserIntance = new HomeRequest(localStorage.authToken, this);
-        getUserIntance.instance.get('/api/user/home');
+          var getUserIntance = new HomeRequest(localStorage.authToken, this);
+          var value = getUserIntance.instance.get('/api/user/home').then( result => {
+          console.log('in then home request', result);
+          
+          this.UserInstance = result.data.UserInstance;
+          this.frame = 'userInstance';
+        });
       });
     }
   }
@@ -134,8 +143,8 @@ movingBackground("images/background1.jpg", "#app");
 #app {
   background-image: url(~Images/background1.jpg);
   background-repeat: no-repeat;
-  background-position: center;
-  transition: background-position ease;
+  //background-position: center;
+  transition: background-position ease .3s;
 
   width: 100%;
   height: 100vh;
