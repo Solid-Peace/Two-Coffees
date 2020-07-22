@@ -60,10 +60,7 @@ module.exports = class User
                     
                 })
                 .then( result => {
-
-                    console.log('Bibliotheque was updated', result);
                     resolve(result);
-
                 })
                 .catch( err => {
 

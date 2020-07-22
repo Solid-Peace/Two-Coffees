@@ -25,15 +25,11 @@ module.exports = {
         var userID = req.body.newUserInstance._id;
         var newBibliotheque = req.body.newUserInstance.TwoCoffees.Bibliotheque
         
-        console.log('in updateB middleware 1', newBibliotheque)
+        console.log('in updateB middleware', newBibliotheque)
 
         User.updateB(userID, newBibliotheque)
             .then(res => {
-
-                console.log('in updateB Middleware', res);
-
                 next();
-
             })
             .catch(err => {
 

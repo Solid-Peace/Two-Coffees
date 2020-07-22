@@ -21,6 +21,9 @@
       <GameList 
         v-show="frame == 'gameList'"
         :Bibliotheque="Bibliotheque"
+        @rebuiltGameList="rebuiltGameList"
+        @backToAddGame="backToAddGame"
+        :key="keyGameList"
       />
     </transition>
   </div>
@@ -49,10 +52,22 @@ export default {
 			AddGameComponentKey: 0,
       frame: 'addGameForm',
       Bibliotheque: this.UserInstance.TwoCoffees.Bibliotheque,
+      keyGameList: 0,
 		}
   },
 
+  // mounted() {
+  //   this.$root.$on('backToAddGame', () => {
+  //     this.frame = 'addGameForm';
+  //     console.log(this.frame);
+  //   })
+  // },
+
 	methods: {
+
+    backToAddGame() {
+      this.frame = "addGameForm"
+    },
 
     afterLeaveAddGameBox() {
       this.frame = 'gameList'
@@ -67,10 +82,20 @@ export default {
 		},
 
 		// Allow to rebuilt a component after modification
-        rebuiltComponent() {
-            this.AddGameComponentKey += 1;
-        },
-	}
+    rebuiltComponent() {
+      this.AddGameComponentKey += 1;
+    },
+
+    rebuiltGameList() {
+      this.keyGameList += 1;
+    },
+  },
+
+  mounted() {
+    this.$root.$on('rebuiltGameList', () => {
+      this.rebuiltGameList;
+    })
+  }
 }
 </script>
 

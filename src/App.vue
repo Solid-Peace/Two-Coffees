@@ -32,6 +32,7 @@ import { testModule, movingBackground } from "JS/functions.js";
 import axios from "axios";
 import LoginRequest from "JS/requests/Login.js"
 import HomeRequest from "JS/requests/Home.js"
+import UpdateRequest from "JS/requests/Update.js";
 
 import TheLogin from "Components/TheLogin.vue"
 import TheRegister from "Components/TheRegister.vue"
@@ -66,6 +67,30 @@ export default {
     this.$root.$on('updateUserInstance', newUserInstance => {
       this.UserInstance = newUserInstance;
     });
+
+    this.$root.$on('deleteGame', (gameToDelete) => {
+
+      delete this.UserInstance.TwoCoffees.Bibliotheque[gameToDelete.platformName][gameToDelete.gameName];
+
+      var request = new UpdateRequest(localStorage.authToken);
+
+      request.instance
+        .post("/api/user/updateB", {
+          newUserInstance: this.UserInstance
+        })
+        .then(r => {
+          console.log(r);
+          this.$root.$emit('rebuiltGameList');
+        })
+        .catch(error => alert("in client side, addGame", error));
+        
+      // console.log('in deleteGame of App', gameToDelete);
+
+      // console.log('in deleteGame of App', this.UserInstance.TwoCoffees.Bibliotheque[gameToDelete.platformName]);
+
+      // console.log('in deleteGame of App', this.UserInstance);
+      
+    })
   },
 
   created() {

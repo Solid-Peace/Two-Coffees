@@ -39,15 +39,22 @@
             </div>
         </div>
 
-        <transition name="platform">
-            <Platform 
-                v-show="platformChoice"
-                :key="platformChoice"
-                :gamesOfPlatform="gamesOfPlatform"
-                class="list-container"
-            />
-        </transition>
+        <div class="transparant-container">
+            <transition name="platform">
 
+                <Platform 
+                    v-show="platformChoice"
+                    :key="platformChoice"
+                    :gamesOfPlatform="gamesOfPlatform"
+                    class="list-container"
+                />
+            </transition>
+         </div>
+
+         <div class="footer">
+             <button @click="$emit('backToAddGame')">Back</button>
+             <button @click="$root.$emit('undisplayMenu')">Menu</button>
+         </div>
     </div>
 </template>
 
@@ -134,6 +141,41 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+
+    width: 100%;
+
+    button {
+        padding: 15px;
+        font-size: 20px;
+        font-weight: bolder;
+        text-transform: uppercase;
+        text-shadow: 0.5px 0.5px 0.3px rgba(0, 0, 0, 0.4), -0.5px -0.5px 0.3px rgba(255, 255, 255, 0.6);
+        color: transparent;
+        background-clip: text;
+
+        transition: all .3s ease;
+
+        
+        &:hover {
+            text-shadow: 0 0 1px #03e9f4;
+        }
+    }
+}
+
+.transparant-container {
+    height: 50vh;
+    transform: translate(-50%, -35%);
+    overflow: auto;
+    padding: 10px;
+}
 
 .platform-enter-active, .platform-leave-active {
   transition: opacity 1s ease;

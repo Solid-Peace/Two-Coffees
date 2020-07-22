@@ -1,6 +1,5 @@
 <template>
-    <div class="transparant-container">
-        <div class="game-list-container">
+        <div class="in-game-list-container">
 
             <div 
                 class="game-item"
@@ -14,24 +13,70 @@
                     {{ obj }}
                 </div>
 
-                <button class="delete-game">X</button>
+                <button 
+                    class="delete-game"
+                    @click="deleteGame(gameName)"
+                >
+                    X
+                </button>
             </div>
-        </div>
 
-    </div>
+            <GameDelete
+                v-if="showDeleteModal"
+                :deleteGameName="deleteGameName"
+                @closeGameDelete="closeGameDelete"
+                @closeGameDeleteAndDelete="closeGameDeleteAndDelete"
+
+            />
+
+        </div>
 </template>
 
 <script>
+import GameDelete from 'Components/modals/gameDelete.vue'
+
 export default {
+
+    components: {
+        GameDelete,
+    },
+
     props: {
         gamesOfPlatform: Object,
     },
 
     data() {
         return {
-            gameNameList: Object.keys(this.gamesOfPlatform),
             //gamesOfPlatform: this.gamesOfPlatform,
             games: this.gamesOfPlatform.games,
+            showDeleteModal: false,
+            deleteGameName: '',
+        }
+    },
+
+    methods: {
+
+        deleteGame(gameName) {
+            console.log('in delete game', gameName);
+            this.deleteGameName = gameName;
+            this.showDeleteModal = true;
+        },
+
+        closeGameDelete() {
+            this.showDeleteModal = false;
+        },
+
+        closeGameDeleteAndDelete(deleteGameName) {
+            console.log('in closeGameDeleteAndDelete', deleteGameName);
+
+            var gameToDelete = {
+                platformName: this.gamesOfPlatform.name,
+                gameName: deleteGameName,
+            }
+
+            this.$root.$emit('deleteGame', gameToDelete);
+            this.showDeleteModal = false;
+            // alert('not implemented yet');
         }
     },
 
@@ -50,7 +95,7 @@ export default {
     padding: 10px;
 }
 
-.game-list-container {
+.in-game-list-container {
     display: flex;
     flex-direction: column;
     align-items: center;
