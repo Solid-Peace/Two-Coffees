@@ -214,9 +214,15 @@ module.exports = {
             // Only /login and /register are aviable
             // Without jwt signature 
 
-            console.log('in else of jwtAuth');
+            console.log('in else of jwtAuth', req.path);
 
-            req.path === ("/api/auth/login" || "/api/auth/register") ? next() : res.redirect(403, '/');
+            if(req.path.includes("register") || req.path.includes("login")){
+                next()
+            }else{
+                res.redirect(403, '/')
+            }
+
+            // req.path == ("/api/auth/login" || "/api/auth/register") ? next() : res.redirect(403, '/');
 
         }
     },

@@ -134,8 +134,9 @@ export default {
         })
         .then(res => {
           console.log(res);
-          let user = res.data.msg.ops[0].username;
+          let user = res.data.user.username;
           alert(`User ${user} has been registered`);
+          this.frame = 'login';
         })
         .catch(error => alert(error));
     },

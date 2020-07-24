@@ -20,7 +20,7 @@ function movingBackground(url, querySelector) {
 
     }
 
-    isMobile() ? eventType = "touchmove" : eventType = "click";
+    isMobile() ? eventType = "touchstart" : eventType = "click";
 
     console.log(eventType);
 
